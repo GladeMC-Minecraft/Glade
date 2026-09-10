@@ -1,0 +1,38 @@
+# ==========================================
+#        BMAPS - messages.yml
+# ==========================================
+# Alle Texte hier nutzen MiniMessage-Format (https://docs.advntr.dev/minimessage/format.html)
+# Platzhalter stehen in spitzen Klammern, z.B. <path>, <name>, <count>.
+# Nach dem Bearbeiten reicht /bmaps reload, kein Server-Neustart nötig.
+
+prefix: "<dark_gray>[<aqua>BMAPS</aqua>]</dark_gray> <gray>"
+
+errors:
+  empty-path: "<red>Bitte einen Pfad angeben, z.B. Sachsen-Anhalt/Salzlandkreis"
+  not-found: "<red><path> wurde nicht gefunden."
+  parent-not-found: "<red>Kategorie <path> existiert nicht. Erst mit addcategory anlegen."
+  parent-not-category: "<red><path> ist keine Kategorie."
+  warp-root-forbidden: "<red>Warps müssen in einer Kategorie liegen, nicht direkt im Root."
+  segment-is-warp: "<red>'<segment>' ist bereits ein Warp, keine Kategorie."
+  type-mismatch: "<red><path> ist <actual_type>. Nutze dafür den <expected_command>-Befehl."
+  move-into-self: "<red>Kann nicht verschoben werden: Ziel liegt innerhalb von <path> selbst."
+  name-collision: "<red>Am Zielort existiert bereits ein Eintrag namens <name>."
+  database: "<red>Datenbankfehler. Siehe Server-Log."
+  player-only: "<red>Dieser Befehl kann nur von Spielern genutzt werden."
+  player-only-icon: "<red>Dieser Befehl kann nur von Spielern genutzt werden (Icon = Item in der Hand)."
+  empty-hand: "<red>Halte das gewünschte Icon-Item in der Hand und führe den Befehl erneut aus."
+  world-not-found: "<red>Fehler: Die Zielwelt existiert nicht!"
+
+success:
+  category-created: "<green>Kategorie-Pfad <yellow><path></yellow> angelegt/aktualisiert."
+  warp-created: "<green>Warp <yellow><path></yellow> an deiner Position angelegt."
+  icon-updated: "<green>Icon von <yellow><path></yellow> auf <yellow><icon></yellow> aktualisiert."
+  description-updated: "<green>Beschreibung von <yellow><path></yellow> aktualisiert."
+  description-cleared: "<green>Beschreibung von <yellow><path></yellow> entfernt."
+  permission-set: "<green><path> erfordert jetzt die Permission <yellow><permission></yellow>."
+  permission-cleared: "<green><path> ist jetzt wieder für alle sichtbar."
+  moved: "<green><from> nach <yellow><to></yellow> verschoben."
+  removed: "<green><path> gelöscht."
+  removed-with-children: "<green><path> und <yellow><count></yellow> untergeordnete Einträge gelöscht."
+  reload: "<green>BMAPS-Navigationsbaum und Nachrichten neu geladen."
+  teleport: "<gray>Teleportiert zu <aqua><warp></aqua>."
