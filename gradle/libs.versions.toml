@@ -1,0 +1,13 @@
+[versions]
+paper = "26.1.2.build.66-stable"
+shadow = "9.2.2"
+# Nur für core (compileOnly). Zur Laufzeit stellt Paper Adventure bereit.
+adventure = "4.24.0"
+
+[libraries]
+paper-api = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+adventure-api = { module = "net.kyori:adventure-api", version.ref = "adventure" }
+adventure-minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure" }
+
+[plugins]
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

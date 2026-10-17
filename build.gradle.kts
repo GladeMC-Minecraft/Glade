@@ -1,11 +1,10 @@
 plugins {
-    id("java")
-    id("com.gradleup.shadow") version "8.3.5" apply false
+    alias(libs.plugins.shadow) apply false
 }
 
 allprojects {
-    group = "net.glademc.glade.plugin"
-    version = "1.0.0-Alpha"
+    group = "net.glademc.glade"
+    version = "1.0.0-devbuild"
 
     repositories {
         mavenCentral()
@@ -14,16 +13,16 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "java")
+    apply(plugin = "java-library")
 
-    java {
+    extensions.configure<JavaPluginExtension> {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
+            languageVersion.set(JavaLanguageVersion.of(25))
         }
     }
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.release.set(21)
+        options.release.set(25)
     }
 }

@@ -1,0 +1,26 @@
+# Glade - Hauptkonfiguration
+
+# Standardsprache für alle Nachrichten.
+# Mitgeliefert: "de" (Deutsch), "en" (English)
+# Eigene Sprachen: Datei plugins/Glade/messages/<sprache>.yml anlegen und hier den Namen eintragen.
+# Existiert die Sprache nicht, wird automatisch "en" verwendet.
+lang: "en"
+
+# Einstellungen für das Resourcepack
+pack:
+  # Wie das Resourcepack an die Spieler ausgeliefert wird:
+  #   external  - das Pack liegt extern (eigener Webspace, CDN, ...), es wird nur die URL gesendet
+  #   self_host - Glade stellt das Pack selbst über einen eingebauten Webserver bereit
+  mode: external
+
+  # Nur relevant bei mode: external
+  external:
+    # Direkter Download-Link zum Texturenpaket (.zip)
+    url: ""
+
+  # Nur relevant bei mode: self_host
+  self_host:
+    # Adresse, unter der der Webserver erreichbar ist (für Spieler von außen die öffentliche IP/Domain)
+    host: "127.0.0.1"
+    # Port des Webservers (muss in der Firewall/beim Hoster freigegeben sein)
+    port: 3301

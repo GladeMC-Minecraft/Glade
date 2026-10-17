@@ -4,6 +4,6 @@ profile:
   name: qodana.starter
 
 
-projectJDK: "21"
+projectJDK: "25"
 
 linter: jetbrains/qodana-jvm-community:2026.2

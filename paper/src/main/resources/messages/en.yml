@@ -1,0 +1,23 @@
+# Glade - English language file (MiniMessage)
+# Placeholders: %prefix% = prefix, %name% = values replaced in code
+
+prefix: "<b><gradient:#00E676:#2979FF>Glade</gradient></b> <dark_gray>» <reset>"
+
+general:
+  enabled: "%prefix%<green>Glade <white>%version%</white> has been enabled."
+  disabled: "%prefix%<yellow>Glade has been disabled."
+  no_permission: "%prefix%<red>You don't have permission for that! </red><dark_gray>(<red>%permission%</red>)</dark_gray>"
+  player_only: "%prefix%<red>This command can only be used by players."
+  unknown_subcommand: "%prefix%<red>Unknown subcommand. Use <white>/%command% help</white>."
+  reload_success: "%prefix%<green>Configurations have been reloaded."
+  reload_failed: "%prefix%<red>An error occurred while reloading. Check the console for details."
+
+items:
+  given: "%prefix%<green>You received <white>%amount%x %item%</white>."
+  given_other: "%prefix%<green><white>%player%</white> received <white>%amount%x %item%</white>."
+  not_found: "%prefix%<red>The item <white>%item%</white> does not exist."
+  invalid_amount: "%prefix%<red>Invalid amount: <white>%amount%</white>."
+
+command:
+  usage: "%prefix%<gray>Usage: <white>/glade reload configs</white> <dark_gray>- <gray>Reloads config.yml, languages and resource pack"
+  reload_usage: "%prefix%<gray>Usage: <white>/glade reload configs</white> <dark_gray>- <gray>Reloads config.yml, languages and resource pack"

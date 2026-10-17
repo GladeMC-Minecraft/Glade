@@ -1,5 +1,12 @@
+plugins {
+    alias(libs.plugins.shadow)
+}
+
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+    compileOnly(libs.paper.api)
+
+    implementation(project(":api"))
+    implementation(project(":core"))
 }
 
 tasks {
@@ -7,5 +14,18 @@ tasks {
         filesMatching("paper-plugin.yml") {
             expand("version" to project.version)
         }
+    }
+
+    jar {
+        archiveClassifier.set("plain")
+    }
+
+    shadowJar {
+        archiveBaseName.set("Glade")
+        archiveClassifier.set("")
+    }
+
+    build {
+        dependsOn(shadowJar)
     }
 }

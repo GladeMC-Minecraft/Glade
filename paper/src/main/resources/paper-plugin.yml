@@ -1,10 +1,9 @@
 name: Glade
-main: net.glademc.glade.plugin.GladePaperPlugin
+main: net.glademc.glade.paper.GladePaperPlugin
 version: ${version}
 description: Glade Paper-Plugin
 authors:
   - GladeMC
-api-version: "1.21"
+api-version: "26.1"
 folia-supported: true
 prefix: Glade
-load: STARTUP

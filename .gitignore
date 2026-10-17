@@ -2,8 +2,6 @@
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 # IntelliJ IDEA
 .idea/
@@ -41,7 +39,7 @@ desktop.ini
 *.db-shm
 *.db-wal
 
-# Server-Test-Umgebung (falls du z.B. einen lokalen Testserver im Projekt hast)
+# Server-Test-Umgebung
 run/
 server/
 plugins/
