@@ -34,12 +34,18 @@ import java.util.logging.Logger;
  *       {@code plugins/Glade/pack/glade-pack.zip} bereit. Der Server lauscht auf allen
  *       Netzwerk-Schnittstellen auf dem konfigurierten Port, {@code host} wird für die
  *       URL genutzt, die an die Spieler gesendet wird.</li>
+ *   <li>{@link PackMode#HERMES}: Beim Generieren wird die Zip auf den Hermes-Server hochgeladen
+ *       ({@link #uploadToHermes}). Die zurückgegebene URL wird in {@code pack/hermes.json}
+ *       gespeichert und beim Start/Reload von dort gelesen.</li>
  * </ul>
  */
 public final class PackService {
 
     /** Name der Pack-Datei im Self-Host-Modus (liegt in plugins/Glade/pack/). */
     public static final String ZIP_NAME = "glade-pack.zip";
+
+    /** Speichert URL und Hash des zuletzt hochgeladenen Hermes-Packs (liegt in plugins/Glade/pack/). */
+    public static final String HERMES_FILE = "hermes.json";
 
     private static final UUID PACK_ID =
             UUID.nameUUIDFromBytes("glade:resourcepack".getBytes(StandardCharsets.UTF_8));
@@ -73,6 +79,7 @@ public final class PackService {
         switch (settings.mode()) {
             case EXTERNAL -> startExternal(settings, current);
             case SELF_HOST -> startSelfHost(settings);
+            case HERMES -> startHermes();
         }
     }
 
@@ -127,6 +134,36 @@ public final class PackService {
                     packInfo = info;
                     logger.info("Resource pack ready (external): " + uri);
                 });
+    }
+
+    // ------------------------------------------------------------------
+    // hermes
+    // ------------------------------------------------------------------
+
+    private void startHermes() {
+        HermesState state = HermesState.load(folders.pack().resolve(HERMES_FILE));
+        if (state == null) {
+            logger.warning("Resource pack (hermes) is not active yet: run /glade generatepack to upload it.");
+            return;
+        }
+        packInfo = ResourcePackInfo.resourcePackInfo(PACK_ID, URI.create(state.url()), state.sha1());
+        logger.info("Resource pack ready (hermes): " + state.url());
+    }
+
+    /**
+     * Lädt die Zip auf den Hermes-Server hoch und verwendet danach die zurückgegebene URL.
+     * Blockiert während des Uploads, deshalb nicht im Server-Thread aufrufen.
+     *
+     * @throws IOException wenn der Upload fehlschlägt oder Hermes ihn ablehnt
+     */
+    public HermesState uploadToHermes(Path zip, String key) throws IOException {
+        HermesState state = new HermesClient().upload(zip, key);
+        state.save(folders.pack().resolve(HERMES_FILE));
+        synchronized (this) {
+            packInfo = ResourcePackInfo.resourcePackInfo(PACK_ID, URI.create(state.url()), state.sha1());
+        }
+        logger.info("Resource pack ready (hermes): " + state.url());
+        return state;
     }
 
     // ------------------------------------------------------------------

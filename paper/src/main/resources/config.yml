@@ -11,6 +11,8 @@ pack:
   # Wie das Resourcepack an die Spieler ausgeliefert wird:
   #   external  - das Pack liegt extern (eigener Webspace, CDN, ...), es wird nur die URL gesendet
   #   self_host - Glade stellt das Pack selbst über einen eingebauten Webserver bereit
+  #   hermes    - Glade lädt das Pack beim /glade generatepack auf den Glade-Server (Hermes) hoch
+  #               und verteilt es von dort. Dafür wird ein Key benötigt (siehe unten).
   mode: external
 
   # Nur relevant bei mode: external
@@ -24,3 +26,8 @@ pack:
     host: "127.0.0.1"
     # Port des Webservers (muss in der Firewall/beim Hoster freigegeben sein)
     port: 3301
+
+  # Nur relevant bei mode: hermes
+  hermes:
+    # Dein Hermes-Key. Beantrage ihn auf dem Glade-Discord.
+    key: ""

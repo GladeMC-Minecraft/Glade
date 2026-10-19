@@ -19,5 +19,40 @@ items:
   invalid_amount: "%prefix%<red>Ungültige Anzahl: <white>%amount%</white>."
 
 command:
-  usage: "%prefix%<gray>Verwendung: <white>/glade reload configs</white> <dark_gray>- <gray>Lädt config.yml, Sprachen und Resourcepack neu"
+  usage:
+    - "%prefix%<gray>Befehle:"
+    - "<dark_gray>» <white>/glade reload configs <dark_gray>- <gray>Lädt config.yml, Sprachen und Resourcepack neu"
+    - "<dark_gray>» <white>/glade generatepack <dark_gray>- <gray>Erstellt die glade-pack.zip"
+    - "<dark_gray>» <white>/glade sendpack [all|Spielername] <dark_gray>- <gray>Sendet das Resourcepack erneut"
+    - "<dark_gray>» <white>/glade menu <dark_gray>- <gray>Zeigt alle Items"
+    - "<dark_gray>» <white>/glade give Spieler Item [Menge] <dark_gray>- <gray>Gibt ein Item"
+    - "<dark_gray>» <white>/glade reload items <dark_gray>- <gray>Lädt die Items neu"
   reload_usage: "%prefix%<gray>Verwendung: <white>/glade reload configs</white> <dark_gray>- <gray>Lädt config.yml, Sprachen und Resourcepack neu"
+  generatepack_start: "%prefix%<gray>Resourcepack wird generiert..."
+  generatepack_success: "%prefix%<green>Resourcepack generiert: <white>%files%</white> Dateien, <white>%size%</white> <dark_gray>(<gray>%time%</gray>)</dark_gray>"
+  generatepack_failed: "%prefix%<red>Das Resourcepack konnte nicht generiert werden: <white>%error%</white>"
+  generatepack_busy: "%prefix%<red>Das Resourcepack wird gerade schon generiert."
+  generatepack_hermes_start: "%prefix%<gray>Resourcepack wird zu Hermes hochgeladen..."
+  generatepack_hermes_success: "%prefix%<green>Hermes: Resourcepack hochgeladen. <dark_gray>(<gray>%url%</gray>)</dark_gray>"
+  generatepack_hermes_failed: "%prefix%<red>Hermes-Upload fehlgeschlagen: <white>%error%</white>"
+  sendpack_usage: "%prefix%<gray>Verwendung: <white>/glade sendpack [all|Spielername]</white>"
+  sendpack_not_ready: "%prefix%<red>Es ist noch kein Resourcepack bereit. Nutze <white>/glade generatepack</white>."
+  sendpack_all: "%prefix%<green>Resourcepack an <white>%count%</white> Spieler gesendet."
+  sendpack_player: "%prefix%<green>Resourcepack an <white>%player%</white> gesendet."
+  sendpack_no_players: "%prefix%<red>Kein Spieler gefunden."
+  give_usage: "%prefix%<gray>Verwendung: <white>/glade give Spieler namespace:item [Menge]</white>"
+  give_success_multiple: "%prefix%<green><white>%count%</white> Spieler haben <white>%amount%x %item%</white> erhalten."
+  reload_items_success: "%prefix%<green>Items neu geladen: <white>%count%</white> Items, <white>%errors%</white> Fehler <dark_gray>(Details in der Konsole)</dark_gray>. <gray>Für neue Modelle: <white>/glade generatepack</white>"
+
+menu:
+  title: "<dark_gray>Glade Items <gray>(%page%/%pages%)"
+  previous: "<yellow>« Vorherige Seite"
+  next: "<yellow>Nächste Seite »"
+  page: "<gray>Seite <white>%page%</white>/<white>%pages%</white>"
+  lore_id: "<dark_gray>ID: <gray>%id%"
+  lore_take: "<yellow>Klick: <white>1x erhalten <dark_gray>| <yellow>Shift-Klick: <white>ganzer Stack"
+
+mechanics:
+  cooldown: "%prefix%<red>Du musst noch <white>%seconds%s</white> warten."
+  not_droppable: "%prefix%<red>Dieses Item kann nicht fallen gelassen werden."
+  not_movable: "%prefix%<red>Dieses Item kann nicht in Behälter gelegt werden."

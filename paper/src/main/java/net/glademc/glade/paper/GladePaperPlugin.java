@@ -2,9 +2,17 @@ package net.glademc.glade.paper;
 
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.glademc.glade.core.GladeCore;
+import net.glademc.glade.core.item.ItemModelGenerator;
+import net.glademc.glade.core.item.ItemRegistry;
 import net.glademc.glade.core.util.MessageUtils;
 import net.glademc.glade.paper.command.GladeCommand;
 import net.glademc.glade.paper.file.GladeFolders;
+import net.glademc.glade.paper.item.ItemFactory;
+import net.glademc.glade.paper.item.ItemLoader;
+import net.glademc.glade.paper.item.ItemUpdateListener;
+import net.glademc.glade.paper.item.ItemUpdater;
+import net.glademc.glade.paper.item.MenuListener;
+import net.glademc.glade.paper.mechanics.MechanicsListener;
 import net.glademc.glade.paper.message.MessageLoader;
 import net.glademc.glade.paper.pack.PackListener;
 import net.glademc.glade.paper.pack.PackService;
@@ -26,6 +34,11 @@ public final class GladePaperPlugin extends JavaPlugin {
     private MessageUtils messages;
     private MessageLoader messageLoader;
     private PackService packService;
+    private volatile PackSettings packSettings;
+    private ItemRegistry itemRegistry;
+    private ItemLoader itemLoader;
+    private ItemFactory itemFactory;
+    private ItemUpdater itemUpdater;
 
     @Override
     public void onEnable() {
@@ -49,7 +62,16 @@ public final class GladePaperPlugin extends JavaPlugin {
         packService = new PackService(this, folders);
         getServer().getPluginManager().registerEvents(new PackListener(packService), this);
 
+        itemRegistry = new ItemRegistry();
+        itemFactory = new ItemFactory(this, messages, itemRegistry);
+        itemLoader = new ItemLoader(this, folders, itemRegistry);
+        itemUpdater = new ItemUpdater(itemFactory, itemRegistry, messages);
+        getServer().getPluginManager().registerEvents(new MenuListener(), this);
+        getServer().getPluginManager().registerEvents(new ItemUpdateListener(itemUpdater), this);
+        getServer().getPluginManager().registerEvents(new MechanicsListener(this), this);
+
         reloadConfigs();
+        reloadItems();
 
         registerCommands();
 
@@ -97,7 +119,36 @@ public final class GladePaperPlugin extends JavaPlugin {
         }
         messages.setDefaultLanguage(lang);
 
-        packService.reload(PackSettings.load(getConfig(), getLogger()));
+        reloadPack();
+    }
+
+    /** Wendet den pack-Block der config.yml neu an (z. B. nach dem Generieren der glade-pack.zip). */
+    public void reloadPack() {
+        packSettings = PackSettings.load(getConfig(), getLogger());
+        packService.reload(packSettings);
+    }
+
+    /**
+     * Liest alle Item-Dateien aus plugins/Glade/items/ neu ein und gleicht danach die Namen der
+     * Items von allen Spielern ab, die gerade online sind.
+     */
+    public ItemLoader.Result reloadItems() {
+        ItemLoader.Result result = itemLoader.reload();
+        itemUpdater.refreshOnlinePlayers(this);
+        return result;
+    }
+
+    /** Von Glade erzeugte Dateien fürs Resourcepack (Item-Modelle), Pfad in der Zip zu Inhalt. */
+    public Map<String, byte[]> generatedPackFiles() {
+        return ItemModelGenerator.generate(itemRegistry.all());
+    }
+
+    public ItemRegistry itemRegistry() {
+        return itemRegistry;
+    }
+
+    public ItemFactory itemFactory() {
+        return itemFactory;
     }
 
     public MessageUtils messages() {
@@ -110,6 +161,11 @@ public final class GladePaperPlugin extends JavaPlugin {
 
     public PackService packService() {
         return packService;
+    }
+
+    /** Die zuletzt eingelesenen Einstellungen des pack-Blocks. */
+    public PackSettings packSettings() {
+        return packSettings;
     }
 
     public GladeCore core() {

@@ -9,9 +9,12 @@ public enum PackMode {
     EXTERNAL,
 
     /** Glade stellt das Pack über einen eingebauten Webserver selbst bereit. */
-    SELF_HOST;
+    SELF_HOST,
 
-    /** Liest einen Wert aus der Config ("external", "self_host", "self-host", ...). Unbekannt ergibt {@code null}. */
+    /** Glade lädt das Pack beim Generieren auf den Hermes-Server hoch und nutzt die zurückgegebene URL. */
+    HERMES;
+
+    /** Liest einen Wert aus der Config ("external", "self_host", "hermes", ...). Unbekannt ergibt {@code null}. */
     public static PackMode parse(String raw) {
         if (raw == null) {
             return null;

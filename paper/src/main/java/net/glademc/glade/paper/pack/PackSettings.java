@@ -17,9 +17,11 @@ import java.util.logging.Logger;
  *   self_host:
  *     host: "127.0.0.1"
  *     port: 3301
+ *   hermes:
+ *     key: "..."
  * </pre>
  */
-public record PackSettings(PackMode mode, String externalUrl, String host, int port) {
+public record PackSettings(PackMode mode, String externalUrl, String host, int port, String hermesKey) {
 
     public static final int DEFAULT_PORT = 3301;
 
@@ -28,15 +30,17 @@ public record PackSettings(PackMode mode, String externalUrl, String host, int p
         String rawMode = config.getString("pack.mode", "external");
         PackMode mode = PackMode.parse(rawMode);
         if (mode == null) {
-            logger.warning("Unknown pack.mode '" + rawMode + "' (use 'external' or 'self_host'), using 'external'.");
+            logger.warning("Unknown pack.mode '" + rawMode
+                    + "' (use 'external', 'self_host' or 'hermes'), using 'external'.");
             mode = PackMode.EXTERNAL;
         }
 
         String url = config.getString("pack.external.url", "").trim();
         String host = config.getString("pack.self_host.host", "127.0.0.1").trim();
         int port = parsePort(config.getString("pack.self_host.port"), logger);
+        String hermesKey = config.getString("pack.hermes.key", "").trim();
 
-        return new PackSettings(mode, url, host, port);
+        return new PackSettings(mode, url, host, port, hermesKey);
     }
 
     private static int parsePort(String raw, Logger logger) {
@@ -75,6 +79,9 @@ public record PackSettings(PackMode mode, String externalUrl, String host, int p
             }
             case SELF_HOST -> host.isBlank()
                     ? Optional.of("pack.self_host.host is empty")
+                    : Optional.empty();
+            case HERMES -> hermesKey.isBlank()
+                    ? Optional.of("pack.hermes.key is empty (request a key on the Glade Discord)")
                     : Optional.empty();
         };
     }

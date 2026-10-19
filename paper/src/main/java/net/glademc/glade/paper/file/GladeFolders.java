@@ -18,15 +18,17 @@ import java.nio.file.Path;
  * |   |-- assets/
  * |   |   |-- minecraft/
  * |   |       |-- pack.mcmeta
+ * |   |       |-- pack.png
  * |-- recipes/
  * </pre>
  *
- * <p>Fehlende Ordner werden beim Start angelegt, die {@code pack.mcmeta} wird nur
- * geschrieben, wenn sie noch nicht existiert (eigene Änderungen bleiben erhalten).</p>
+ * <p>Fehlende Ordner werden beim Start angelegt, {@code pack.mcmeta} und {@code pack.png}
+ * werden nur geschrieben, wenn sie noch nicht existieren (eigene Änderungen bleiben erhalten).</p>
  */
 public final class GladeFolders {
 
     private static final String PACK_MCMETA_RESOURCE = "pack/assets/minecraft/pack.mcmeta";
+    private static final String PACK_ICON_RESOURCE = "pack/assets/minecraft/pack.png";
 
     private final JavaPlugin plugin;
     private final Path root;
@@ -46,6 +48,9 @@ public final class GladeFolders {
 
         if (Files.notExists(packMcmeta())) {
             plugin.saveResource(PACK_MCMETA_RESOURCE, false);
+        }
+        if (Files.notExists(packIcon())) {
+            plugin.saveResource(PACK_ICON_RESOURCE, false);
         }
     }
 
@@ -79,6 +84,10 @@ public final class GladeFolders {
 
     public Path packMcmeta() {
         return packMinecraft().resolve("pack.mcmeta");
+    }
+
+    public Path packIcon() {
+        return packMinecraft().resolve("pack.png");
     }
 
     public Path recipes() {

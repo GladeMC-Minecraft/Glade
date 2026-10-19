@@ -19,5 +19,40 @@ items:
   invalid_amount: "%prefix%<red>Invalid amount: <white>%amount%</white>."
 
 command:
-  usage: "%prefix%<gray>Usage: <white>/glade reload configs</white> <dark_gray>- <gray>Reloads config.yml, languages and resource pack"
+  usage:
+    - "%prefix%<gray>Commands:"
+    - "<dark_gray>» <white>/glade reload configs <dark_gray>- <gray>Reloads config.yml, languages and resource pack"
+    - "<dark_gray>» <white>/glade generatepack <dark_gray>- <gray>Creates the glade-pack.zip"
+    - "<dark_gray>» <white>/glade sendpack [all|player] <dark_gray>- <gray>Sends the resource pack again"
+    - "<dark_gray>» <white>/glade menu <dark_gray>- <gray>Shows all items"
+    - "<dark_gray>» <white>/glade give player item [amount] <dark_gray>- <gray>Gives an item"
+    - "<dark_gray>» <white>/glade reload items <dark_gray>- <gray>Reloads the items"
   reload_usage: "%prefix%<gray>Usage: <white>/glade reload configs</white> <dark_gray>- <gray>Reloads config.yml, languages and resource pack"
+  generatepack_start: "%prefix%<gray>Generating resource pack..."
+  generatepack_success: "%prefix%<green>Resource pack generated: <white>%files%</white> files, <white>%size%</white> <dark_gray>(<gray>%time%</gray>)</dark_gray>"
+  generatepack_failed: "%prefix%<red>The resource pack could not be generated: <white>%error%</white>"
+  generatepack_busy: "%prefix%<red>The resource pack is already being generated."
+  generatepack_hermes_start: "%prefix%<gray>Uploading resource pack to Hermes..."
+  generatepack_hermes_success: "%prefix%<green>Hermes: resource pack uploaded. <dark_gray>(<gray>%url%</gray>)</dark_gray>"
+  generatepack_hermes_failed: "%prefix%<red>Hermes upload failed: <white>%error%</white>"
+  sendpack_usage: "%prefix%<gray>Usage: <white>/glade sendpack [all|player]</white>"
+  sendpack_not_ready: "%prefix%<red>No resource pack is ready yet. Use <white>/glade generatepack</white>."
+  sendpack_all: "%prefix%<green>Resource pack sent to <white>%count%</white> players."
+  sendpack_player: "%prefix%<green>Resource pack sent to <white>%player%</white>."
+  sendpack_no_players: "%prefix%<red>No player found."
+  give_usage: "%prefix%<gray>Usage: <white>/glade give player namespace:item [amount]</white>"
+  give_success_multiple: "%prefix%<green><white>%count%</white> players received <white>%amount%x %item%</white>."
+  reload_items_success: "%prefix%<green>Items reloaded: <white>%count%</white> items, <white>%errors%</white> errors <dark_gray>(details in the console)</dark_gray>. <gray>For new models: <white>/glade generatepack</white>"
+
+menu:
+  title: "<dark_gray>Glade Items <gray>(%page%/%pages%)"
+  previous: "<yellow>« Previous page"
+  next: "<yellow>Next page »"
+  page: "<gray>Page <white>%page%</white>/<white>%pages%</white>"
+  lore_id: "<dark_gray>ID: <gray>%id%"
+  lore_take: "<yellow>Click: <white>get 1x <dark_gray>| <yellow>Shift-click: <white>full stack"
+
+mechanics:
+  cooldown: "%prefix%<red>You have to wait <white>%seconds%s</white> more."
+  not_droppable: "%prefix%<red>This item cannot be dropped."
+  not_movable: "%prefix%<red>This item cannot be put into containers."
