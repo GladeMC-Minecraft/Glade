@@ -47,3 +47,5 @@ plugins/
 # Sonstiges
 *.class
 .env
+
+supabase/.temp/
