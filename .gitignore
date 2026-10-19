@@ -48,4 +48,4 @@ plugins/
 *.class
 .env
 
-supabase/.temp/
+supabase/
